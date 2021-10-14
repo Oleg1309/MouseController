@@ -123,6 +123,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Form_1.cpp" />
+    <ClCompile Include="GestureSet.cpp" />
+    <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Form_1.h">
+      <DeploymentContent>false</DeploymentContent>
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GestureSet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form_1.resx">
+      <DeploymentContent>true</DeploymentContent>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

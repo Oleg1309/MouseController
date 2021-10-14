@@ -1,11 +1,13 @@
 #pragma once
 
 #include <Windows.h>
+#include <fstream>
 #include <string>
 #include <msclr\marshal_cppstd.h>
-//#include "Set_gesture.cpp"
-
-
+//#include "Source.cpp"
+#include "GestureSet.h"
+#include <thread>
+#include <vector>
 
 namespace MouseController {
 
@@ -30,9 +32,8 @@ namespace MouseController {
 			//TODO: добавьте код конструктора
 			//
 		}
-
 	protected:
-		/// <summary>
+		/// <summary>ц
 		/// Освободить все используемые ресурсы.
 		/// </summary>
 		~Form_1()
@@ -55,6 +56,7 @@ namespace MouseController {
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ button2;
 	protected:
 
 
@@ -78,6 +80,8 @@ namespace MouseController {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->Set = (gcnew System::Windows::Forms::TabPage());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -87,8 +91,7 @@ namespace MouseController {
 			this->Statistics = (gcnew System::Windows::Forms::TabPage());
 			this->Settings = (gcnew System::Windows::Forms::TabPage());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->Set->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -109,6 +112,7 @@ namespace MouseController {
 			// 
 			// Set
 			// 
+			this->Set->Controls->Add(this->button2);
 			this->Set->Controls->Add(this->label2);
 			this->Set->Controls->Add(this->label1);
 			this->Set->Controls->Add(this->textBox2);
@@ -122,6 +126,24 @@ namespace MouseController {
 			this->Set->TabIndex = 0;
 			this->Set->Text = L"Set a new gesture";
 			this->Set->UseVisualStyleBackColor = true;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(6, 20);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(79, 17);
+			this->label2->TabIndex = 5;
+			this->label2->Text = L"Description";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(6, 314);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(37, 17);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"Path";
 			// 
 			// textBox2
 			// 
@@ -137,7 +159,7 @@ namespace MouseController {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(62, 24);
 			this->button1->TabIndex = 2;
-			this->button1->Text = L"button1";
+			this->button1->Text = L"Browse";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Form_1::button1_Click);
 			// 
@@ -200,23 +222,15 @@ namespace MouseController {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
-			// label1
+			// button2
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(6, 314);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(37, 17);
-			this->label1->TabIndex = 4;
-			this->label1->Text = L"Path";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(6, 20);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(79, 17);
-			this->label2->TabIndex = 5;
-			this->label2->Text = L"Description";
+			this->button2->Location = System::Drawing::Point(142, 280);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(97, 26);
+			this->button2->TabIndex = 6;
+			this->button2->Text = L"Set";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &Form_1::button2_Click);
 			// 
 			// Form_1
 			// 
@@ -233,11 +247,13 @@ namespace MouseController {
 			this->ResumeLayout(false);
 
 		}
+
 #pragma endregion
 
 		////////////
 
 		bool Draw;
+
 
 	private: System::Void pictureBox1_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {\
 		Graphics^ graf = pictureBox1->CreateGraphics();
@@ -249,6 +265,7 @@ namespace MouseController {
 	private: System::Void pictureBox1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		Draw = true;
 		pictureBox1->Refresh();
+		//std::thread setCursorVector(obt);
 	}
 
 	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
@@ -281,6 +298,7 @@ namespace MouseController {
 
 	////////////
 	*/
+		   	//	std::vector <std::pair <int, int> > cursor;
 
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
@@ -288,6 +306,25 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	std::string path = msclr::interop::marshal_as<std::string>(openFileDialog1->FileName);
 	if (path != "")
 		textBox1->Text = msclr::interop::marshal_as<String^>(path);
+}
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	SetCursorPos(900, 500);
+
+	std::vector <std::pair <int, int> > cursor;
+	int y = cursor.size();
+	std::string path = "C:\\System64\Window\HWND\3.dll";
+	obt(path, cursor);
+
+	Graphics^ graf = pictureBox1->CreateGraphics();
+	pictureBox1->Refresh();
+	//std::ofstream fout("C:\\1.txt");
+
+	for (int i = 0; i < cursor.size(); ++i) {
+		//fout << cursor[i].first << " " << cursor[i].second << std::endl;
+		graf->FillEllipse(Brushes::Red, cursor[i].first, cursor[i].second, 3, 3);//here must be a vector of cooordinates red from the file
+		//button2->IsAccessible = false;
+	}
+
 }
 };
 }
