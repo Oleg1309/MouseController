@@ -4,8 +4,8 @@
 #include <fstream>
 #include <string>
 #include <msclr\marshal_cppstd.h>
-//#include "Source.cpp"
 #include "GestureSet.h"
+#include "GestureToFile.h"
 #include <thread>
 #include <vector>
 
@@ -57,6 +57,7 @@ namespace MouseController {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button3;
 	protected:
 
 
@@ -92,6 +93,7 @@ namespace MouseController {
 			this->Statistics = (gcnew System::Windows::Forms::TabPage());
 			this->Settings = (gcnew System::Windows::Forms::TabPage());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->Set->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -112,6 +114,7 @@ namespace MouseController {
 			// 
 			// Set
 			// 
+			this->Set->Controls->Add(this->button3);
 			this->Set->Controls->Add(this->button2);
 			this->Set->Controls->Add(this->label2);
 			this->Set->Controls->Add(this->label1);
@@ -232,6 +235,16 @@ namespace MouseController {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(448, 144);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(94, 23);
+			this->button3->TabIndex = 7;
+			this->button3->Text = L"Add";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &Form_1::button3_Click);
+			// 
 			// Form_1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -317,15 +330,50 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 
 	Graphics^ graf = pictureBox1->CreateGraphics();
 	pictureBox1->Refresh();
-	//std::ofstream fout("C:\\1.txt");
 
 	for (int i = 0; i < cursor.size(); ++i) {
-		//fout << cursor[i].first << " " << cursor[i].second << std::endl;
-		graf->FillEllipse(Brushes::Red, cursor[i].first, cursor[i].second, 3, 3);//here must be a vector of cooordinates red from the file
+		//here must be a vector of cooordinates red from the file
+		graf->FillEllipse(Brushes::Red, cursor[i].first, cursor[i].second, 3, 3);
 		
 	}
-	textBox2->Select();
+	std::ofstream fout("C:\\MouseController\\UserGesture.txt");
+	fout << cursor.size() << std::endl;
+	for (int i = 0; i < cursor.size(); ++i) {
+		fout << cursor[i].first << " " << cursor[i].second;
+		fout << std::endl;
+	}
+	fout.close();
 
+
+}
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	std::ifstream fin("C:\\MouseController\\UserGesture.txt");
+	std::vector<std::pair <int, int> > cursor;
+	std::string description, path;
+	int tmp1, tmp2;
+	int size;
+	fin >> size;
+	for (int i = 0; i < size; ++i) {
+		fin >> tmp1 >> tmp2;
+		cursor.push_back(std::make_pair(tmp1, tmp2));
+	}
+	fin.close();
+	std::ifstream finl("C:\\MouseController\\GestureList.txt");
+	std::string filepath;
+	for (int i = 1; i <= 10; ++i) {
+		finl >> filepath;
+		if (filepath == "NO") {
+			filepath = "C:\\MouseController\\G";
+			filepath += std::to_string(i);
+			filepath += ".txt";
+			break;
+		}
+	}
+	finl.close();
+	path = msclr::interop::marshal_as<std::string>(textBox1->Text);
+	description = msclr::interop::marshal_as<std::string>(textBox2->Text);
+
+	precedencing(cursor, path, filepath, description);
 }
 };
 }

@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="Form_1.cpp" />
     <ClCompile Include="GestureSet.cpp" />
+    <ClCompile Include="GestureToFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form_1.h">
@@ -131,6 +132,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="GestureSet.h" />
+    <ClInclude Include="GestureToFile.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form_1.resx">
