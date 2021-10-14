@@ -80,6 +80,7 @@ namespace MouseController {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->Set = (gcnew System::Windows::Forms::TabPage());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
@@ -91,7 +92,6 @@ namespace MouseController {
 			this->Statistics = (gcnew System::Windows::Forms::TabPage());
 			this->Settings = (gcnew System::Windows::Forms::TabPage());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->Set->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -126,6 +126,16 @@ namespace MouseController {
 			this->Set->TabIndex = 0;
 			this->Set->Text = L"Set a new gesture";
 			this->Set->UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(448, 112);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(97, 26);
+			this->button2->TabIndex = 6;
+			this->button2->Text = L"Set";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &Form_1::button2_Click);
 			// 
 			// label2
 			// 
@@ -172,9 +182,9 @@ namespace MouseController {
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(245, 6);
+			this->pictureBox1->Location = System::Drawing::Point(445, 6);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(300, 300);
+			this->pictureBox1->Size = System::Drawing::Size(100, 100);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form_1::pictureBox1_MouseDown);
@@ -221,16 +231,6 @@ namespace MouseController {
 			// openFileDialog1
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
-			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(142, 280);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(97, 26);
-			this->button2->TabIndex = 6;
-			this->button2->Text = L"Set";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &Form_1::button2_Click);
 			// 
 			// Form_1
 			// 
@@ -322,8 +322,9 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	for (int i = 0; i < cursor.size(); ++i) {
 		//fout << cursor[i].first << " " << cursor[i].second << std::endl;
 		graf->FillEllipse(Brushes::Red, cursor[i].first, cursor[i].second, 3, 3);//here must be a vector of cooordinates red from the file
-		//button2->IsAccessible = false;
+		
 	}
+	textBox2->Select();
 
 }
 };

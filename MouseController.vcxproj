@@ -124,7 +124,6 @@
   <ItemGroup>
     <ClCompile Include="Form_1.cpp" />
     <ClCompile Include="GestureSet.cpp" />
-    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form_1.h">

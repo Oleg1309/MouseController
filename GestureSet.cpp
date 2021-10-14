@@ -11,7 +11,6 @@ void filling(std::vector <std::pair <int, int> > &cursor) {
 	POINT point ;
 	POINT tmp;
 
-	
 	int a, b;
 	while (true) {
 		GetCursorPos(&point);
@@ -33,8 +32,6 @@ void filling(std::vector <std::pair <int, int> > &cursor) {
 			return;
 		}
 	}
-
-
 }
 
 void moving(std::vector <std::pair <int, int> >& cursor) {
@@ -84,8 +81,8 @@ void increasing(std::vector <std::pair <int, int> >& cursor) {		//заполняем проп
 
 void obt(std::string path, std::vector <std::pair <int, int> > &cursor) {
 	for (int i = 0; i < 150; ++i) {
-		if (!GetKeyState(VK_LBUTTON) && 0x8000)
-			break;
+		//if (!GetKeyState(VK_LBUTTON) && 0x8000)
+		//	break;
 		cursor.push_back(std::make_pair(-1, -1));
 	}
 
