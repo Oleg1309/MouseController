@@ -123,14 +123,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Form_1.cpp" />
+    <ClCompile Include="GestureListToDataGridView.cpp" />
     <ClCompile Include="GestureSet.cpp" />
     <ClCompile Include="GestureToFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form_1.h">
       <DeploymentContent>false</DeploymentContent>
-      <FileType>CppForm</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
+    <ClInclude Include="GestureListToDataGridView.h" />
     <ClInclude Include="GestureSet.h" />
     <ClInclude Include="GestureToFile.h" />
   </ItemGroup>

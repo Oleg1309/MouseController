@@ -24,6 +24,9 @@
     <ClCompile Include="GestureToFile.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="GestureListToDataGridView.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form_1.resx">
@@ -38,6 +41,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GestureToFile.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GestureListToDataGridView.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

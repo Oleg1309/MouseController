@@ -6,6 +6,7 @@
 #include <msclr\marshal_cppstd.h>
 #include "GestureSet.h"
 #include "GestureToFile.h"
+#include "GestureListToDataGridView.h"
 #include <thread>
 #include <vector>
 
@@ -58,6 +59,11 @@ namespace MouseController {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Number;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Description;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Path;
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ PlaySound;
 	protected:
 
 
@@ -94,9 +100,16 @@ namespace MouseController {
 			this->Statistics = (gcnew System::Windows::Forms::TabPage());
 			this->Settings = (gcnew System::Windows::Forms::TabPage());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Description = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Path = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->PlaySound = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->tabControl1->SuspendLayout();
 			this->Set->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			this->Delete->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// tabControl1
@@ -200,12 +213,10 @@ namespace MouseController {
 			this->pictureBox1->Size = System::Drawing::Size(100, 100);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
-			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form_1::pictureBox1_MouseDown);
-			this->pictureBox1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form_1::pictureBox1_MouseMove);
-			this->pictureBox1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form_1::pictureBox1_MouseUp);
 			// 
 			// Delete
 			// 
+			this->Delete->Controls->Add(this->dataGridView1);
 			this->Delete->Location = System::Drawing::Point(4, 25);
 			this->Delete->Name = L"Delete";
 			this->Delete->Padding = System::Windows::Forms::Padding(3);
@@ -245,6 +256,55 @@ namespace MouseController {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->Number,
+					this->Description, this->Path, this->PlaySound
+			});
+			dataGridView1->Rows->Add(9);
+			dataGridView1->Rows[1]->Cells[2]->Value = "rrr";
+			gestureListToTable();
+
+			this->dataGridView1->Location = System::Drawing::Point(6, 60);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->RowTemplate->Height = 24;
+			this->dataGridView1->Size = System::Drawing::Size(539, 277);
+			this->dataGridView1->TabIndex = 0;
+			// 
+			// Number
+			// 
+			this->Number->HeaderText = L"Number";
+			this->Number->MinimumWidth = 6;
+			this->Number->Name = L"Number";
+			this->Number->ReadOnly = true;
+			// 
+			// Description
+			// 
+			this->Description->HeaderText = L"Description";
+			this->Description->MinimumWidth = 6;
+			this->Description->Name = L"Description";
+			this->Description->ReadOnly = true;
+			this->Description->Width = 125;
+			// 
+			// Path
+			// 
+			this->Path->HeaderText = L"Path";
+			this->Path->MinimumWidth = 6;
+			this->Path->Name = L"Path";
+			this->Path->ReadOnly = true;
+			this->Path->Width = 125;
+			// 
+			// PlaySound
+			// 
+			this->PlaySound->HeaderText = L"PlaySound";
+			this->PlaySound->MinimumWidth = 6;
+			this->PlaySound->Name = L"PlaySound";
+			this->PlaySound->ReadOnly = true;
+			this->PlaySound->Width = 125;
+			// 
 			// Form_1
 			// 
 			this->AllowDrop = true;
@@ -259,12 +319,14 @@ namespace MouseController {
 			this->Set->ResumeLayout(false);
 			this->Set->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			this->Delete->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 
 #pragma endregion
-
+		/*
 		////////////
 
 		bool Draw;
@@ -285,7 +347,7 @@ namespace MouseController {
 
 	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		Draw = false;
-	}
+	}*/
 		   /*
 	private: void saveAs() {
 		openFileDialog1->ShowDialog();
