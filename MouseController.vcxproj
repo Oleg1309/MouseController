@@ -130,7 +130,7 @@
   <ItemGroup>
     <ClInclude Include="Form_1.h">
       <DeploymentContent>false</DeploymentContent>
-      <FileType>CppHeader</FileType>
+      <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="GestureListToDataGridView.h" />
     <ClInclude Include="GestureSet.h" />

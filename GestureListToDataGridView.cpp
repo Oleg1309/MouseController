@@ -5,11 +5,10 @@
 #include <array>
 #include <string>
 
-void gestureListToTable() {
+void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData) {
 
 	std::string data1, data2;
-	
-	std::array <std::pair <std::string, std::string>, 10 > gestureData;
+
 
 	for (int i = 1; i < 11; ++i) {
 		std::string filePath = "C:\\MouseController\\G";
@@ -21,4 +20,16 @@ void gestureListToTable() {
 		gestureData[i - 1] = std::make_pair(data1, data2);
 		fin.close();
 	}
+	
+	std::ifstream finl("C:\\MouseController\\GestureList.txt");
+	std::string tmp;
+	for (int i = 0; i < 10; ++i) {
+		finl >> tmp;
+		if (tmp == "NO") {
+			gestureData[i].first = "";
+			gestureData[i].second = "";
+		}
+
+	}
+	finl.close();
 }

@@ -2,6 +2,10 @@
 #ifndef GESTURETODATAGRIDVIEW_H
 #define GESTURETODATAGRIDVIEW_H
 
-void gestureListToTable();
+#include <fstream>
+#include <array>
+#include <string>
+
+void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData);
 
 #endif // !GESTURETODATAGRIDVIEW
