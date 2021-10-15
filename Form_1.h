@@ -81,6 +81,7 @@ namespace MouseController {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->Set = (gcnew System::Windows::Forms::TabPage());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -93,7 +94,6 @@ namespace MouseController {
 			this->Statistics = (gcnew System::Windows::Forms::TabPage());
 			this->Settings = (gcnew System::Windows::Forms::TabPage());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->Set->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -129,6 +129,16 @@ namespace MouseController {
 			this->Set->TabIndex = 0;
 			this->Set->Text = L"Set a new gesture";
 			this->Set->UseVisualStyleBackColor = true;
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(448, 144);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(94, 23);
+			this->button3->TabIndex = 7;
+			this->button3->Text = L"Add";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &Form_1::button3_Click);
 			// 
 			// button2
 			// 
@@ -235,22 +245,14 @@ namespace MouseController {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(448, 144);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(94, 23);
-			this->button3->TabIndex = 7;
-			this->button3->Text = L"Add";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &Form_1::button3_Click);
-			// 
 			// Form_1
 			// 
+			this->AllowDrop = true;
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(562, 436);
 			this->Controls->Add(this->tabControl1);
+			this->MaximizeBox = false;
 			this->Name = L"Form_1";
 			this->Text = L"Form_1";
 			this->tabControl1->ResumeLayout(false);
@@ -347,33 +349,57 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 
 }
 private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-	std::ifstream fin("C:\\MouseController\\UserGesture.txt");
-	std::vector<std::pair <int, int> > cursor;
-	std::string description, path;
-	int tmp1, tmp2;
-	int size;
-	fin >> size;
-	for (int i = 0; i < size; ++i) {
-		fin >> tmp1 >> tmp2;
-		cursor.push_back(std::make_pair(tmp1, tmp2));
+	HWND hWnd = GetForegroundWindow();
+	if (textBox1->Text == "") {
+		MessageBoxW(hWnd, L"Path is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
 	}
-	fin.close();
-	std::ifstream finl("C:\\MouseController\\GestureList.txt");
-	std::string filepath;
-	for (int i = 1; i <= 10; ++i) {
-		finl >> filepath;
-		if (filepath == "NO") {
-			filepath = "C:\\MouseController\\G";
-			filepath += std::to_string(i);
-			filepath += ".txt";
-			break;
+	else if (textBox2->Text == "") {
+		MessageBoxW(hWnd, L"Description is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
+	}
+	else {
+		std::ifstream fin("C:\\MouseController\\UserGesture.txt");
+		std::vector<std::pair <int, int> > cursor;
+		std::string description, path;
+		int tmp1, tmp2;
+		int size;
+		fin >> size;
+		for (int i = 0; i < size; ++i) {
+			fin >> tmp1 >> tmp2;
+			cursor.push_back(std::make_pair(tmp1, tmp2));
 		}
-	}
-	finl.close();
-	path = msclr::interop::marshal_as<std::string>(textBox1->Text);
-	description = msclr::interop::marshal_as<std::string>(textBox2->Text);
+		fin.close();
+		std::ifstream finl("C:\\MouseController\\GestureList.txt");
+		std::string filepath;
+		std::string mas[10];
+		for (int i = 0; i < 10; ++i)
+			finl >> mas[i];
+		finl.close();
+		for (int i = 0; i < 10; ++i) {
+			if (mas[i] == "NO") {
+				mas[i] = "YES";
+				filepath = "C:\\MouseController\\G";
+				filepath += std::to_string(i + 1);
+				filepath += ".txt";
+				break;
+			}
+		}
+		if (filepath == "")
+			filepath = "C:\\MouseController\\G1.txt";//you already have more than 10 gestures
+		std::ofstream fout("C:\\MouseController\\GestureList.txt");
+		for (int i = 0; i < 10; ++i)
+			fout << mas[i] << std::endl;
+		fout.close();
+		path = msclr::interop::marshal_as<std::string>(textBox1->Text);
+		description = msclr::interop::marshal_as<std::string>(textBox2->Text);
 
-	precedencing(cursor, path, filepath, description);
+		precedencing(cursor, path, filepath, description);
+
+		MessageBoxW(hWnd, L"A new gesture added successfully", L"Success", MB_ICONINFORMATION | MB_OK);
+		textBox1->Text = "";
+		textBox2->Text = "";
+		delete pictureBox1->Image;
+		pictureBox1->Image = nullptr;
+	}
 }
 };
 }
