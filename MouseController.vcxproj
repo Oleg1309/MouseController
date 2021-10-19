@@ -122,12 +122,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DeleteGesture.cpp" />
     <ClCompile Include="Form_1.cpp" />
     <ClCompile Include="GestureListToDataGridView.cpp" />
     <ClCompile Include="GestureSet.cpp" />
     <ClCompile Include="GestureToFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DeleteGesture.h" />
     <ClInclude Include="Form_1.h">
       <DeploymentContent>false</DeploymentContent>
       <FileType>CppForm</FileType>

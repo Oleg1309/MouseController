@@ -7,6 +7,7 @@
 #include "GestureSet.h"
 #include "GestureToFile.h"
 #include "GestureListToDataGridView.h"
+#include "DeleteGesture.h"
 #include <thread>
 #include <vector>
 #include <array>
@@ -506,8 +507,16 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 	fillingDataGridView();
 }
+	   void deleteGesture(int gestureNumber) {}
 private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
 	auto u = dataGridView1->SelectedRows;
+	for (int i = 0; i < 10; ++i) {
+		if (u->Contains(dataGridView1->Rows[i]))
+			deleteGesture(i);
+	}
+	//if (u->Contains(dataGridView1->Rows[0]))
+	//	Beep(1000, 1000);
+
 }
 };
 }
