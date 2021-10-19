@@ -256,10 +256,15 @@ namespace MouseController {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->Number,
 					this->Description, this->Path, this->PlaySound
+					
+
 			});
+			this->dataGridView1->Rows->Add(9);
+
 			this->dataGridView1->Location = System::Drawing::Point(6, 60);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
@@ -407,7 +412,6 @@ private: void fillingDataGridView() {
 	//dataGridView1->Rows[1]->Cells[2]->Value = "rrr";
 	std::array <std::pair <std::string, std::string>, 10 > gestureData;
 	gestureListToTable(gestureData);
-	dataGridView1->Rows->Add(9);
 
 	for (int i = 0; i < 10; ++i)
 		dataGridView1->Rows[i]->Cells[0]->Value = msclr::interop::marshal_as<String^>(std::to_string(i + 1));
@@ -453,6 +457,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 }
 private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 	HWND hWnd = GetForegroundWindow();
+
 	if (textBox1->Text == "") {
 		MessageBoxW(hWnd, L"Path is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
 	}
@@ -486,36 +491,47 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 				break;
 			}
 		}
-		if (filepath == "")
-			filepath = "C:\\MouseController\\G1.txt";//you already have more than 10 gestures
-		std::ofstream fout("C:\\MouseController\\GestureList.txt");
-		for (int i = 0; i < 10; ++i)
-			fout << mas[i] << std::endl;
-		fout.close();
-		path = msclr::interop::marshal_as<std::string>(textBox1->Text);
-		description = msclr::interop::marshal_as<std::string>(textBox2->Text);
+		if (filepath != "") {
+			//filepath = "C:\\MouseController\\G1.txt";//you already have more than 10 gestures
+			std::ofstream fout("C:\\MouseController\\GestureList.txt");
+			for (int i = 0; i < 10; ++i)
+				fout << mas[i] << std::endl;
+			fout.close();
+			path = msclr::interop::marshal_as<std::string>(textBox1->Text);
+			description = msclr::interop::marshal_as<std::string>(textBox2->Text);
 
-		precedencing(cursor, path, filepath, description);
+			precedencing(cursor, path, filepath, description);
 
-		MessageBoxW(hWnd, L"A new gesture added successfully", L"Success", MB_ICONINFORMATION | MB_OK);
-		textBox1->Text = "";
-		textBox2->Text = "";
-		delete pictureBox1->Image;
-		pictureBox1->Image = nullptr;
+			MessageBoxW(hWnd, L"A new gesture added successfully", L"Success", MB_ICONINFORMATION | MB_OK);
+			textBox1->Text = "";
+			textBox2->Text = "";
+			delete pictureBox1->Image;
+			pictureBox1->Image = nullptr;
+		}
+		else
+			MessageBoxW(hWnd, L"You already have 10 gestures", L"Fail", MB_ICONEXCLAMATION | MB_OK);
+
 	}
 }
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 	fillingDataGridView();
 }
-	   void deleteGesture(int gestureNumber) {}
+
 private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
-	auto u = dataGridView1->SelectedRows;
-	for (int i = 0; i < 10; ++i) {
-		if (u->Contains(dataGridView1->Rows[i]))
-			deleteGesture(i);
+	HWND hWnd = GetForegroundWindow();
+	int a = MessageBoxW(hWnd, L"Are you sure?", L"Deleting a gesture", MB_ICONINFORMATION | MB_OKCANCEL);
+	if (a == 1) {
+
+		auto u = dataGridView1->SelectedRows;
+		if (u->Count != 0) {
+			for (int i = 0; i < 10; ++i)
+				if (u->Contains(dataGridView1->Rows[i]))
+					deleteGesture(i);
+		}
+		else
+			MessageBoxW(hWnd, L"No gestures chosen", L"Fail", MB_ICONINFORMATION | MB_OK);
+		dataGridView1->ClearSelection();
 	}
-	//if (u->Contains(dataGridView1->Rows[0]))
-	//	Beep(1000, 1000);
 
 }
 };
