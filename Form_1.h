@@ -430,6 +430,9 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		textBox1->Text = msclr::interop::marshal_as<String^>(path);
 }
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	HWND hWnd = GetForegroundWindow();
+	ShowWindow(hWnd, SW_HIDE);
+
 	SetCursorPos(900, 500);
 
 	std::vector <std::pair <int, int> > cursor;
@@ -522,10 +525,10 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	int a = MessageBoxW(hWnd, L"Are you sure?", L"Deleting a gesture", MB_ICONINFORMATION | MB_OKCANCEL);
 	if (a == 1) {
 
-		auto u = dataGridView1->SelectedRows;
-		if (u->Count != 0) {
+		//auto u = dataGridView1->SelectedRows;
+		if (dataGridView1->SelectedRows->Count != 0) {
 			for (int i = 0; i < 10; ++i)
-				if (u->Contains(dataGridView1->Rows[i]))
+				if (dataGridView1->SelectedRows->Contains(dataGridView1->Rows[i]))
 					deleteGesture(i);
 		}
 		else
