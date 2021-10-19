@@ -28,9 +28,7 @@ void deleteGesture(int gestureNumber) {
 		fin >> gestureList[i];
 
 	fin.close();
-	if (gestureNumber == 9)
-		gestureList[gestureNumber] = "NO";
-	else {
+
 		int exchangedGesture = 0;
 		for (int i = 9; i >= gestureNumber; --i) {
 			if (i == gestureNumber) {
@@ -45,7 +43,6 @@ void deleteGesture(int gestureNumber) {
 			}
 
 		}
-	}
 
 	//gestureList[gestureNumber] = "NO";
 
