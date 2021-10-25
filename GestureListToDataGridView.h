@@ -6,6 +6,6 @@
 #include <array>
 #include <string>
 
-void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData);
+void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData, std::array <int, 10> &playSound);
 
 #endif // !GESTURETODATAGRIDVIEW

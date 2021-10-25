@@ -50,7 +50,7 @@ namespace MouseController {
 	private: System::Windows::Forms::TabPage^ Set;
 	private: System::Windows::Forms::TabPage^ Delete;
 	private: System::Windows::Forms::TabPage^ Logs;
-	private: System::Windows::Forms::TabPage^ Statistics;
+
 	private: System::Windows::Forms::TabPage^ Settings;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
@@ -62,12 +62,21 @@ namespace MouseController {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
+
+
+
+
+	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Number;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Description;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Path;
 	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ PlaySound;
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::CheckBox^ checkBox1;
+
+
+
+
 	protected:
 
 
@@ -80,7 +89,7 @@ namespace MouseController {
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -108,9 +117,9 @@ namespace MouseController {
 			this->Path = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->PlaySound = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->Logs = (gcnew System::Windows::Forms::TabPage());
-			this->Statistics = (gcnew System::Windows::Forms::TabPage());
 			this->Settings = (gcnew System::Windows::Forms::TabPage());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->tabControl1->SuspendLayout();
 			this->Set->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -123,7 +132,6 @@ namespace MouseController {
 			this->tabControl1->Controls->Add(this->Set);
 			this->tabControl1->Controls->Add(this->Delete);
 			this->tabControl1->Controls->Add(this->Logs);
-			this->tabControl1->Controls->Add(this->Statistics);
 			this->tabControl1->Controls->Add(this->Settings);
 			this->tabControl1->Location = System::Drawing::Point(4, 3);
 			this->tabControl1->Name = L"tabControl1";
@@ -133,6 +141,7 @@ namespace MouseController {
 			// 
 			// Set
 			// 
+			this->Set->Controls->Add(this->checkBox1);
 			this->Set->Controls->Add(this->button3);
 			this->Set->Controls->Add(this->button2);
 			this->Set->Controls->Add(this->label2);
@@ -255,30 +264,33 @@ namespace MouseController {
 			// 
 			// dataGridView1
 			// 
+			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
+			this->dataGridView1->AllowUserToResizeColumns = false;
+			this->dataGridView1->AllowUserToResizeRows = false;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->Number,
 					this->Description, this->Path, this->PlaySound
-					
-
 			});
-			this->dataGridView1->Rows->Add(9);
+			this->dataGridView1->Rows->Add(10);
 
+
+			this->dataGridView1->Cursor = System::Windows::Forms::Cursors::SizeAll;
 			this->dataGridView1->Location = System::Drawing::Point(6, 60);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(539, 277);
+			this->dataGridView1->Size = System::Drawing::Size(539, 290);
 			this->dataGridView1->TabIndex = 0;
 			// 
 			// Number
 			// 
-			this->Number->HeaderText = L"Number";
+			this->Number->HeaderText = L"№";
 			this->Number->MinimumWidth = 6;
 			this->Number->Name = L"Number";
 			this->Number->ReadOnly = true;
-			this->Number->Width = 125;
+			this->Number->Width = 30;
 			// 
 			// Description
 			// 
@@ -286,7 +298,7 @@ namespace MouseController {
 			this->Description->MinimumWidth = 6;
 			this->Description->Name = L"Description";
 			this->Description->ReadOnly = true;
-			this->Description->Width = 125;
+			this->Description->Width = 166;
 			// 
 			// Path
 			// 
@@ -294,7 +306,7 @@ namespace MouseController {
 			this->Path->MinimumWidth = 6;
 			this->Path->Name = L"Path";
 			this->Path->ReadOnly = true;
-			this->Path->Width = 125;
+			this->Path->Width = 210;
 			// 
 			// PlaySound
 			// 
@@ -302,7 +314,7 @@ namespace MouseController {
 			this->PlaySound->MinimumWidth = 6;
 			this->PlaySound->Name = L"PlaySound";
 			this->PlaySound->ReadOnly = true;
-			this->PlaySound->Width = 125;
+			this->PlaySound->Width = 80;
 			// 
 			// Logs
 			// 
@@ -312,15 +324,6 @@ namespace MouseController {
 			this->Logs->TabIndex = 2;
 			this->Logs->Text = L"Logs";
 			this->Logs->UseVisualStyleBackColor = true;
-			// 
-			// Statistics
-			// 
-			this->Statistics->Location = System::Drawing::Point(4, 25);
-			this->Statistics->Name = L"Statistics";
-			this->Statistics->Size = System::Drawing::Size(551, 407);
-			this->Statistics->TabIndex = 3;
-			this->Statistics->Text = L"Statistics";
-			this->Statistics->UseVisualStyleBackColor = true;
 			// 
 			// Settings
 			// 
@@ -334,6 +337,16 @@ namespace MouseController {
 			// openFileDialog1
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
+			// 
+			// checkBox1
+			// 
+			this->checkBox1->AutoSize = true;
+			this->checkBox1->Location = System::Drawing::Point(6, 117);
+			this->checkBox1->Name = L"checkBox1";
+			this->checkBox1->Size = System::Drawing::Size(100, 21);
+			this->checkBox1->TabIndex = 8;
+			this->checkBox1->Text = L"Play sound";
+			this->checkBox1->UseVisualStyleBackColor = true;
 			// 
 			// Form_1
 			// 
@@ -378,164 +391,166 @@ namespace MouseController {
 	private: System::Void pictureBox1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		Draw = false;
 	}*/
-		   /*
-	private: void saveAs() {
-		openFileDialog1->ShowDialog();
-		if (openFileDialog1->FileName != nullptr)
-			this->pictureBox1->ImageLocation = this->openFileDialog1->FileName;
-		if (pictureBox1->Image)
-			Beep(500, 500);
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		Bitmap^ bitmap1 = gcnew Bitmap(pictureBox1->InitialImage);
-		if (!pictureBox1->Image)
-			Beep(500, 500);
-		Color pixelColor = bitmap1->GetPixel(0, 0);
-		if (pixelColor.R == 0)
-			Beep(1000, 1000);
-		//while (true) {
-			bitmap1->SetPixel(0, 0, Color::FromArgb(100, 100, 100));
-			bitmap1->SetPixel(1, 1, Color::FromArgb(100, 100, 100));
-			bitmap1->SetPixel(2, 2, Color::FromArgb(100, 100, 100));
-			bitmap1->SetPixel(2, 1, Color::FromArgb(100, 100, 100));
-		//}
-	}
-
-	////////////
-	*/
-		   	//	std::vector <std::pair <int, int> > cursor;
-
-private: void fillingDataGridView() {
-	//dataGridView1->Rows->Add(9);
-	//dataGridView1->Rows[1]->Cells[2]->Value = "rrr";
-	std::array <std::pair <std::string, std::string>, 10 > gestureData;
-	gestureListToTable(gestureData);
-
-	for (int i = 0; i < 10; ++i)
-		dataGridView1->Rows[i]->Cells[0]->Value = msclr::interop::marshal_as<String^>(std::to_string(i + 1));
-
-	for (int i = 0; i < 10; ++i) {
-		dataGridView1->Rows[i]->Cells[1]->Value = msclr::interop::marshal_as<String^>(gestureData[i].first);
-		dataGridView1->Rows[i]->Cells[2]->Value = msclr::interop::marshal_as<String^>(gestureData[i].second);
-	}
-}
-
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
+	/*
+private: void saveAs() {
 	openFileDialog1->ShowDialog();
-	std::string path = msclr::interop::marshal_as<std::string>(openFileDialog1->FileName);
-	if (path != "")
-		textBox1->Text = msclr::interop::marshal_as<String^>(path);
+	if (openFileDialog1->FileName != nullptr)
+		this->pictureBox1->ImageLocation = this->openFileDialog1->FileName;
+	if (pictureBox1->Image)
+		Beep(500, 500);
+
+	/// <summary>
+	///
+	/// </summary>
+	Bitmap^ bitmap1 = gcnew Bitmap(pictureBox1->InitialImage);
+	if (!pictureBox1->Image)
+		Beep(500, 500);
+	Color pixelColor = bitmap1->GetPixel(0, 0);
+	if (pixelColor.R == 0)
+		Beep(1000, 1000);
+	//while (true) {
+		bitmap1->SetPixel(0, 0, Color::FromArgb(100, 100, 100));
+		bitmap1->SetPixel(1, 1, Color::FromArgb(100, 100, 100));
+		bitmap1->SetPixel(2, 2, Color::FromArgb(100, 100, 100));
+		bitmap1->SetPixel(2, 1, Color::FromArgb(100, 100, 100));
+	//}
 }
-private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-	HWND hWnd = GetForegroundWindow();
-	//ShowWindow(hWnd, SW_HIDE);
 
-	SetCursorPos(900, 500);
+////////////
+*/
+//	std::vector <std::pair <int, int> > cursor;
 
-	std::vector <std::pair <int, int> > cursor;
-	int y = cursor.size();
-	std::string path = "C:\\System64\Window\HWND\3.dll";
-	obt(path, cursor);
+	private: void fillingDataGridView() {
+		//dataGridView1->Rows->Add(9);
+		//dataGridView1->Rows[1]->Cells[2]->Value = "rrr";
+		std::array <std::pair <std::string, std::string>, 10 > gestureData;
+		std::array <int, 10> playSound;
+		gestureListToTable(gestureData, playSound);
 
-	Graphics^ graf = pictureBox1->CreateGraphics();
-	pictureBox1->Refresh();
-
-	for (int i = 0; i < cursor.size(); ++i) {
-		//here must be a vector of cooordinates red from the file
-		graf->FillEllipse(Brushes::Red, cursor[i].first, cursor[i].second, 3, 3);
-		
-	}
-	std::ofstream fout("C:\\MouseController\\UserGesture.txt");
-	fout << cursor.size() << std::endl;
-	for (int i = 0; i < cursor.size(); ++i) {
-		fout << cursor[i].first << " " << cursor[i].second;
-		fout << std::endl;
-	}
-	fout.close();
-
-
-}
-private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-	HWND hWnd = GetForegroundWindow();
-
-	if (textBox1->Text == "") {
-		MessageBoxW(hWnd, L"Path is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
-	}
-	else if (textBox2->Text == "") {
-		MessageBoxW(hWnd, L"Description is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
-	}
-	else {
-		std::ifstream fin("C:\\MouseController\\UserGesture.txt");
-		std::vector<std::pair <int, int> > cursor;
-		std::string description, path;
-		int tmp1, tmp2;
-		int size;
-		fin >> size;
-		for (int i = 0; i < size; ++i) {
-			fin >> tmp1 >> tmp2;
-			cursor.push_back(std::make_pair(tmp1, tmp2));
-		}
-		fin.close();
-		std::ifstream finl("C:\\MouseController\\GestureList.txt");
-		std::string filepath;
-		std::string mas[10];
 		for (int i = 0; i < 10; ++i)
-			finl >> mas[i];
-		finl.close();
+			dataGridView1->Rows[i]->Cells[0]->Value = msclr::interop::marshal_as<String^>(std::to_string(i + 1));
+
 		for (int i = 0; i < 10; ++i) {
-			if (mas[i] == "NO") {
-				mas[i] = "YES";
-				filepath = "C:\\MouseController\\G";
-				filepath += std::to_string(i + 1);
-				filepath += ".txt";
-				break;
+			dataGridView1->Rows[i]->Cells[1]->Value = msclr::interop::marshal_as<String^>(gestureData[i].first);
+			dataGridView1->Rows[i]->Cells[2]->Value = msclr::interop::marshal_as<String^>(gestureData[i].second);
+			dataGridView1->Rows[i]->Cells[3]->Value = playSound[i];
+		}
+	}
+
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
+		openFileDialog1->ShowDialog();
+		std::string path = msclr::interop::marshal_as<std::string>(openFileDialog1->FileName);
+		if (path != "")
+			textBox1->Text = msclr::interop::marshal_as<String^>(path);
+	}
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		HWND hWnd = GetForegroundWindow();
+		//ShowWindow(hWnd, SW_HIDE);
+
+		SetCursorPos(900, 500);
+
+		std::vector <std::pair <int, int> > cursor;
+		int y = int(cursor.size());
+		std::string path = "C:\\System64\Window\HWND\3.dll";
+		obt(path, cursor);
+
+		Graphics^ graf = pictureBox1->CreateGraphics();
+		pictureBox1->Refresh();
+
+		for (int i = 0; i < cursor.size(); ++i) {
+			//here must be a vector of cooordinates red from the file
+			graf->FillEllipse(Brushes::Red, cursor[i].first, cursor[i].second, 3, 3);
+
+		}
+		std::ofstream fout("C:\\MouseController\\UserGesture.txt");
+		fout << cursor.size() << std::endl;
+		for (int i = 0; i < cursor.size(); ++i) {
+			fout << cursor[i].first << " " << cursor[i].second;
+			fout << std::endl;
+		}
+		fout.close();
+
+
+	}
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		HWND hWnd = GetForegroundWindow();
+
+		if (textBox1->Text == "") {
+			MessageBoxW(hWnd, L"Path is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
+		}
+		else if (textBox2->Text == "") {
+			MessageBoxW(hWnd, L"Description is empty", L"Error", MB_ICONEXCLAMATION | MB_OK);
+		}
+		else {
+			std::ifstream fin("C:\\MouseController\\UserGesture.txt");
+			std::vector<std::pair <int, int> > cursor;
+			std::string description, path;
+			int tmp1, tmp2;
+			int size;
+			fin >> size;
+			for (int i = 0; i < size; ++i) {
+				fin >> tmp1 >> tmp2;
+				cursor.push_back(std::make_pair(tmp1, tmp2));
 			}
-		}
-		if (filepath != "") {
-			//filepath = "C:\\MouseController\\G1.txt";//you already have more than 10 gestures
-			std::ofstream fout("C:\\MouseController\\GestureList.txt");
+			fin.close();
+			std::ifstream finl("C:\\MouseController\\GestureList.txt");
+			std::string filepath;
+			std::string mas[10];
 			for (int i = 0; i < 10; ++i)
-				fout << mas[i] << std::endl;
-			fout.close();
-			path = msclr::interop::marshal_as<std::string>(textBox1->Text);
-			description = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				finl >> mas[i];
+			finl.close();
+			for (int i = 0; i < 10; ++i) {
+				if (mas[i] == "NO") {
+					mas[i] = "YES";
+					filepath = "C:\\MouseController\\G";
+					filepath += std::to_string(i + 1);
+					filepath += ".txt";
+					break;
+				}
+			}
+			if (filepath != "") {
+				//filepath = "C:\\MouseController\\G1.txt";//you already have more than 10 gestures
+				std::ofstream fout("C:\\MouseController\\GestureList.txt");
+				for (int i = 0; i < 10; ++i)
+					fout << mas[i] << std::endl;
+				fout.close();
+				path = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				description = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				bool playSound = checkBox1->Checked;
+				precedencing(cursor, path, filepath, description, playSound);
 
-			precedencing(cursor, path, filepath, description);
+				MessageBoxW(hWnd, L"A new gesture added successfully", L"Success", MB_ICONINFORMATION | MB_OK);
+				textBox1->Text = "";
+				textBox2->Text = "";
+				delete pictureBox1->Image;
+				pictureBox1->Image = nullptr;
+			}
+			else
+				MessageBoxW(hWnd, L"You already have 10 gestures", L"Fail", MB_ICONEXCLAMATION | MB_OK);
 
-			MessageBoxW(hWnd, L"A new gesture added successfully", L"Success", MB_ICONINFORMATION | MB_OK);
-			textBox1->Text = "";
-			textBox2->Text = "";
-			delete pictureBox1->Image;
-			pictureBox1->Image = nullptr;
 		}
-		else
-			MessageBoxW(hWnd, L"You already have 10 gestures", L"Fail", MB_ICONEXCLAMATION | MB_OK);
+	}
+	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+		fillingDataGridView();
+	}
+
+	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
+		HWND hWnd = GetForegroundWindow();
+		int a = MessageBoxW(hWnd, L"Are you sure?", L"Deleting a gesture", MB_ICONINFORMATION | MB_OKCANCEL);
+		if (a == 1) {
+
+			//auto u = dataGridView1->SelectedRows;
+			if (dataGridView1->SelectedRows->Count != 0) {
+				for (int i = 0; i < 10; ++i)
+					if (dataGridView1->SelectedRows->Contains(dataGridView1->Rows[i]))
+						deleteGesture(i);
+			}
+			else
+				MessageBoxW(hWnd, L"No gestures chosen", L"Fail", MB_ICONINFORMATION | MB_OK);
+			dataGridView1->ClearSelection();
+		}
 
 	}
-}
-private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-	fillingDataGridView();
-}
-
-private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
-	HWND hWnd = GetForegroundWindow();
-	int a = MessageBoxW(hWnd, L"Are you sure?", L"Deleting a gesture", MB_ICONINFORMATION | MB_OKCANCEL);
-	if (a == 1) {
-
-		//auto u = dataGridView1->SelectedRows;
-		if (dataGridView1->SelectedRows->Count != 0) {
-			for (int i = 0; i < 10; ++i)
-				if (dataGridView1->SelectedRows->Contains(dataGridView1->Rows[i]))
-					deleteGesture(i);
-		}
-		else
-			MessageBoxW(hWnd, L"No gestures chosen", L"Fail", MB_ICONINFORMATION | MB_OK);
-		dataGridView1->ClearSelection();
-	}
-
-}
-};
+	};
 }

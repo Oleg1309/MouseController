@@ -5,7 +5,7 @@
 #include <array>
 #include <string>
 
-void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData) {
+void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData, std::array <int, 10> &playSound) {
 
 	std::string data1, data2;
 
@@ -17,6 +17,7 @@ void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &
 		std::ifstream fin(filePath);
 		getline(fin, data1);
 		getline(fin, data2);
+		fin >> playSound[i - 1];
 		gestureData[i - 1] = std::make_pair(data1, data2);
 		fin.close();
 	}
@@ -28,6 +29,7 @@ void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &
 		if (tmp == "NO") {
 			gestureData[i].first = "";
 			gestureData[i].second = "";
+			playSound[i] = 0;
 		}
 
 	}

@@ -6,7 +6,7 @@
 #include <utility>
 #include "GestureToFile.h"
 
-void precedencing(std::vector <std::pair <int, int> >& cursor, std::string& path, std::string &filepath, std::string& description) {
+void precedencing(std::vector <std::pair <int, int> >& cursor, std::string& path, std::string &filepath, std::string& description, bool playSound) {
 
 	int proh[100][100];
 	for (int i = 0; i < 100; ++i)
@@ -91,6 +91,10 @@ void precedencing(std::vector <std::pair <int, int> >& cursor, std::string& path
 	//getline(std::cin, description);
 	fout << description << std::endl;
 	fout << path << std::endl;
+	if (playSound)
+		fout << "1" << std::endl;
+	else
+		fout << "0" << std::endl;
 	for (int i = 0; i < 100; ++i) {
 		for (int j = 0; j < 100; ++j)
 			fout << proh[i][j] << " ";
