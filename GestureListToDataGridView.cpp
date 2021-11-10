@@ -3,6 +3,7 @@
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <array>
+#include <vector>
 #include <string>
 
 void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &gestureData, std::array <int, 10> &playSound) {
@@ -21,7 +22,7 @@ void gestureListToTable(std::array <std::pair <std::string, std::string>, 10 > &
 		gestureData[i - 1] = std::make_pair(data1, data2);
 		fin.close();
 	}
-	
+
 	std::ifstream finl("C:\\MouseController\\GestureList.txt");
 	std::string tmp;
 	for (int i = 0; i < 10; ++i) {
